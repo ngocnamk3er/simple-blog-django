@@ -1,0 +1,7 @@
+python manage.py runserver
+python manage.py startapp + app's name
+python manage.py makemigrations + app's name
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py test + app's name
+python manage.py shell
