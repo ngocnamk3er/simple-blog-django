@@ -1,3 +1,4 @@
+import json
 from django.views.generic import ListView, DetailView
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -14,12 +15,21 @@ class PosteDetail(DetailView):
     template_name='blog/post.html'
 def post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    form = CommentForm()
-    if request.method == "POST":
-        form = CommentForm(request.POST, author=request.user, post=post)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(request.path)
-    return render(request, "blog/post.html", {"post": post, "form": form})
+    comment_form = CommentForm()
+    return render(request, "blog/post.html", {"post": post,"form": comment_form})
+def postComment(request, pk):
+   post = get_object_or_404(Post, pk=pk)
+   comment_form = CommentForm()
+   if(request.method == "POST"):
+      # print(request.POST["body"])
+      body = request.POST['body']
+      form = CommentForm(request.POST,body=body,author=request.user, post=post)#request.POST để check form xem form có hợp lệ không
+      if form.is_valid():
+         print("savingggggggggg")
+         form.save()
+         return HttpResponseRedirect("/blog/" + str(post.pk))
+      else:
+         print("hichic")
+   return render(request, "blog/post.html", {"post": post,"form": comment_form})
 
 

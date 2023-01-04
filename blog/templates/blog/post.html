@@ -14,7 +14,7 @@
     <p>{{comment.body|linebreaks}}</p>
 {% endfor %}
 {% if user.username %}
-    <form action="{% url 'post' post.id %}" method="POST">
+    <form action="{% url 'post' post.id %}comments" method="POST">
         {% csrf_token %}
         <p><label>Bình luận:</label></p>
         {{form.body}}
