@@ -8,7 +8,7 @@ class RegistrationForm(forms.Form):
     password1 = forms.CharField(label='Mật khẩu', widget=forms.PasswordInput())
     password2 = forms.CharField(label='Nhập lại mật khẩu', widget=forms.PasswordInput())
 
-    def clean_password2(self):
+    def cleanpassword2(self):
         if 'password1' in self.cleaned_data:
             password1 = self.cleaned_data['password1']
             password2 = self.cleaned_data['password2']
@@ -16,7 +16,7 @@ class RegistrationForm(forms.Form):
                 return password2
         raise forms.ValidationError("Mật khẩu không hợp lệ")
 
-    def clean_username(self):
+    def cleanusername(self):
         username = self.cleaned_data['username']
         if not re.search(r'^\w+$', username):
             raise forms.ValidationError("Tên tài khoản có kí tự đặc biệt")
